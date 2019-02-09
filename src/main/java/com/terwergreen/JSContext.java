@@ -12,7 +12,7 @@ public class JSContext {
             jsContext = new JSContext();
             context = Context.newBuilder("js").allowAllAccess(true).build();
             long end = System.currentTimeMillis();
-            System.out.printf("Init NashornScriptEngine cost time {%s} ms\n", (end - start));
+            System.out.printf("Init JSContext cost time {%s} ms\n", (end - start));
         }
         return jsContext;
     }
