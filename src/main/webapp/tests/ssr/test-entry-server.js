@@ -1,7 +1,4 @@
-// yarn babel ./src/ssr/entry-server.js --presets=@babel/preset-env
-// yarn babel-node ./tests/ssr/test-entry-server.js --presets=@babel/preset-env
-import 'core-js';
-import "../../src/ssr/entry-server";
+import "../../build/ssrdist/entry-server";
 
 const context = {
   url: "/"
