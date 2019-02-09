@@ -10,7 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
-
 public class Main {
     private final Object promiseLock = new Object();
     private volatile boolean promiseResolved = false;

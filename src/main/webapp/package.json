@@ -8,11 +8,14 @@
     "build": "parcel build src/index.html -d build/dist --detailed-report",
     "build:entry-client": "parcel build src/ssr/entry-client.js -d build/ssrdist --detailed-report",
     "build:entry-server": "parcel build src/ssr/entry-server.js -d build/ssrdist --detailed-report",
+    "build-ssr":"yarn clean && yarn build:entry-client && yarn build:entry-server",
     "test": "node build/dist/app.*.js",
     "test:compile-entry-client": "babel tests/ssr/test-entry-client.js --out-file tests/ssr/test-entry-client-compiled.js",
     "test:entry-client": "node tests/ssr/test-entry-cliententry-server.js-compiled.js",
     "test:compile-entry-server": "babel tests/ssr/test-entry-server.js --out-file tests/ssr/test-entry-server-compiled.js",
-    "test:entry-server": "node tests/ssr/test-entry-server-compiled.js"
+    "test:entry-server": "node tests/ssr/test-entry-server-compiled.js",
+    "test-ssr": "yarn build:entry-server && yarn test:compile-entry-server && yarn test:entry-server",
+    "test-ssr-no-build": "yarn test:compile-entry-server && yarn test:entry-server"
   },
   "dependencies": {
     "vue": "^2.6.4",
