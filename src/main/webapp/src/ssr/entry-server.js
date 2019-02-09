@@ -1,14 +1,8 @@
-import Vue from "vue";
+import { createApp } from "../main";
 
+const { vm } = createApp();
 const renderVueComponentToString = require("vue-server-renderer/basic.js");
 
-// app.js
-const vm = new Vue({
-  template: `<div>{{ msg }}</div>`,
-  data: {
-    msg: "Hello World"
-  }
-});
 console.log("vm.$data.msg>>", vm.$data.msg);
 global.renderServer = context => {
   console.log("context=>" + JSON.stringify(context));

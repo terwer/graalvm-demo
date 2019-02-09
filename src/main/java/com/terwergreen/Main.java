@@ -35,46 +35,49 @@ public class Main {
 
     private void execute(Map<String, Object> httpContext) {
         try (Context context = JSContext.getInstance().getContext()) {
-            // 编译app
-            String app = readResource("entry-server.js");
-            context.eval("js", app);
+            String main = readResource("main.js");
+            context.eval("js", main);
 
-            // renderServer
-            String source = "(async function() { " +
-                    "const context = " + JSON.toJSONString(httpContext) + ";" +
-                    "return global.renderServer(context);" +
-                    " });";
-            Value eval = context.eval("js", source);
-            eval.execute().invokeMember("then", fnResolve, fnRejected);
-
-
-            int i = 0;
-            int jsWaitTimeout = 1000 * 2;
-            int interval = 200; // 等待时间间隔
-            int totalWaitTime = 0; // 实际等待时间
-
-            if (!promiseResolved) {
-                while (!promiseResolved && totalWaitTime < jsWaitTimeout) {
-                    try {
-                        Thread.sleep(interval);
-                    } catch (InterruptedException e) {
-                        System.out.println("Thread error:" + e.getMessage());
-                    }
-                    totalWaitTime = totalWaitTime + interval;
-                    if (interval < 500) interval = interval * 2;
-                    i = i + 1;
-                }
-
-                if (!promiseResolved) {
-                    System.out.println("time is out");
-                } else {
-                    System.out.println("cost time to resolve:" + totalWaitTime);
-                }
-            } else {
-                System.out.println("promise already resolved");
-            }
-
-            System.out.println("renderedObject = " + renderedObject);
+//            // 编译app
+//            String app = readResource("entry-server.js");
+//            context.eval("js", app);
+//
+//            // renderServer
+//            String source = "(async function() { " +
+//                    "const context = " + JSON.toJSONString(httpContext) + ";" +
+//                    "return global.renderServer(context);" +
+//                    " });";
+//            Value eval = context.eval("js", source);
+//            eval.execute().invokeMember("then", fnResolve, fnRejected);
+//
+//
+//            int i = 0;
+//            int jsWaitTimeout = 1000 * 2;
+//            int interval = 200; // 等待时间间隔
+//            int totalWaitTime = 0; // 实际等待时间
+//
+//            if (!promiseResolved) {
+//                while (!promiseResolved && totalWaitTime < jsWaitTimeout) {
+//                    try {
+//                        Thread.sleep(interval);
+//                    } catch (InterruptedException e) {
+//                        System.out.println("Thread error:" + e.getMessage());
+//                    }
+//                    totalWaitTime = totalWaitTime + interval;
+//                    if (interval < 500) interval = interval * 2;
+//                    i = i + 1;
+//                }
+//
+//                if (!promiseResolved) {
+//                    System.out.println("time is out");
+//                } else {
+//                    System.out.println("cost time to resolve:" + totalWaitTime);
+//                }
+//            } else {
+//                System.out.println("promise already resolved");
+//            }
+//
+//            System.out.println("renderedObject = " + renderedObject);
         } catch (Exception e) {
             e.printStackTrace();
         }
